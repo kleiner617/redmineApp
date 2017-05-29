@@ -22,9 +22,7 @@
         loadAll();
 
         function loadAll () {
-
-
-
+            Project.getAll();
             Project.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
@@ -55,9 +53,7 @@
         }
 
         function getAll(){
-            console.log("This is working");
             Project.getAll();
-            console.log("Should have gotten all");
         }
 
 

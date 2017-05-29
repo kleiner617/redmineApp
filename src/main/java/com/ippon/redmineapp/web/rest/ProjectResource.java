@@ -69,7 +69,7 @@ public class ProjectResource {
     @Timed
     public void getAllProjects() throws URISyntaxException {
 
-        log.debug("I've made it to the REST!");
+        //TODO: To get all projects: Use https://redmine.ippon.fr/projects.json
 
         String projJSON = "" +
 
@@ -101,17 +101,12 @@ public class ProjectResource {
 
         ParseJSON parseList = new ParseJSON();
         ArrayList <Project> projectList = new ArrayList<Project>();
-        projectList = parseList.parseString(projJSON);
-
-        log.debug("The list has been parsed");
-
+        projectList = parseList.parseProjects(projJSON);
 
         projectList.forEach(proj->{
             //TODO: Need to check to see if project already exists.  If it does, update it here, don't save it.
             projectRepository.save(proj);
         });
-
-        log.debug("Should have saved to DB!");
 
         return;
     }

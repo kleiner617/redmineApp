@@ -30,7 +30,7 @@ import java.util.Optional;
 public class IssueResource {
 
     private final Logger log = LoggerFactory.getLogger(IssueResource.class);
-        
+
     @Inject
     private IssueRepository issueRepository;
 
@@ -79,6 +79,100 @@ public class IssueResource {
             .headers(HeaderUtil.createEntityUpdateAlert("issue", issue.getId().toString()))
             .body(result);
     }
+
+
+
+
+//    String issueList = "" +
+//        "{" +
+//        "\"issues\": [" +
+//        "{" +
+//        "\"id\": 11940," +
+//        "\"project\": {" +
+//        "\"id\": 104," +
+//        "\"name\": \"Laptop-v2\"" +
+//        "}," +
+//        "\"tracker\": {" +
+//        "\"id\": 4," +
+//        "\"name\": \"Task\"" +
+//        "}," +
+//        "\"status\": {" +
+//        "\"id\": 3," +
+//        "\"name\": \"Resolved\"" +
+//        "}," +
+//        "\"priority\": {" +
+//        "\"id\": 2," +
+//        "\"name\": \"P3 (Normal)\"" +
+//        "}," +
+//        "\"author\": {" +
+//        "\"id\": 485," +
+//        "\"name\": \"Guillaume DERBOUX\"" +
+//        "}," +
+//        "\"assigned_to\": {" +
+//        "\"id\": 485," +
+//        "\"name\": \"Guillaume DERBOUX\"" +
+//        "}," +
+//        "\"fixed_version\": {" +
+//        "\"id\": 350," +
+//        "\"name\": \"Sprint 1 Version\"" +
+//        "}," +
+//        "\"parent\": {" +
+//        "\"id\": 11393" +
+//        "}," +
+//        "\"subject\": \"Modélisation des données\"," +
+//        "\"description\": \"\"," +
+//        "\"start_date\": \"2017-05-24\"," +
+//        "\"done_ratio\": 100," +
+//        "\"estimated_hours\": 4," +
+//        "\"created_on\": \"2017-05-24T10:11:41Z\"," +
+//        "\"updated_on\": \"2017-05-26T12:43:00Z\"" +
+//        "}," +
+//        "{" +
+//        "\"id\": 11938," +
+//        "\"project\": {" +
+//        "\"id\": 104," +
+//        "\"name\": \"Laptop-v2\"" +
+//        "}," +
+//        "\"tracker\": {" +
+//        "\"id\": 4," +
+//        "\"name\": \"Task\"" +
+//        "}," +
+//        "\"status\": {" +
+//        "\"id\": 1," +
+//        "\"name\": \"New\"" +
+//        "}," +
+//        "\"priority\": {" +
+//        "\"id\": 2," +
+//        "\"name\": \"P3 (Normal)\"" +
+//        "}," +
+//        "\"author\": {" +
+//        "\"id\": 133," +
+//        "\"name\": \"Yohann LONG HIM NAM\"" +
+//        "}," +
+//        "\"fixed_version\": {" +
+//        "\"id\": 350," +
+//        "\"name": \"Sprint 1 Version\"" +
+//        "}," +
+//        "\"parent\": {" +
+//        "\"id\": 11396" +
+//        "}," +
+//        "\"subject\": \"Suppression d'un SLT\"," +
+//        "\"description\": \"\"," +
+//        "\"start_date\": \"2017-05-24\"," +
+//        "\"done_ratio\": 0," +
+//        "\"estimated_hours\": 3," +
+//        "\"created_on\": \"2017-05-24T09:52:01Z\"," +
+//        "\"updated_on\": \"2017-05-26T12:43:03Z\"" +
+//        "}" +
+//        "]," +
+//        "\"total_count\": 122," +
+//        "\"offset\": 0," +
+//        "\"limit\": 2" +
+//        "}";
+
+
+
+
 
     /**
      * GET  /issues : get all the issues.

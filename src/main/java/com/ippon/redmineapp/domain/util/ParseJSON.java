@@ -1,17 +1,16 @@
 package com.ippon.redmineapp.domain.util;
 
-import jdk.nashorn.internal.parser.JSONParser;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
+import com.ippon.redmineapp.domain.Issue;
+import com.ippon.redmineapp.domain.Project;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+import javax.inject.Inject;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by owner on 5/29/17.
@@ -24,9 +23,9 @@ import java.util.Iterator;
 
 public class ParseJSON {
 
-    private static final String filePath = "/Users/owner/Desktop/laptop.json";
+    private final Logger log = LoggerFactory.getLogger(ParseJSON.class);
 
-    public static void main(String args[]) {
+/*    public static void main(String args[]) {
 
         String projJSON = "" +
 
@@ -58,10 +57,11 @@ public class ParseJSON {
 
         parseString(projJSON);
 
+    }*/
 
-    }
+    public  ArrayList<Project> parseProjects (String jsonStr){
 
-    public static void parseString (String jsonStr){
+        ArrayList<Project> projList = new ArrayList<>();
 
         JSONArray c = null;
         try {
@@ -69,20 +69,72 @@ public class ParseJSON {
 
             c = jsonObj.getJSONArray("projects");
             for (int i = 0 ; i < c.length(); i++) {
+
+                Project project = new Project();
                 JSONObject obj = c.getJSONObject(i);
 
+                String StringID = obj.getString("id");
+                project.setId(Long.valueOf(StringID));
+                project.setName(obj.getString("name"));
+                project.setIdentifier(obj.getString("identifier"));
+                project.setDescription(obj.getString("description"));
+                project.setStatus(obj.getString("status"));
 
-                System.out.println("BLAH");
-                System.out.println(c.getJSONObject(i));
+                ZonedDateTime createTime = ZonedDateTime.parse(obj.getString("created_on"));
+                project.setCreatedOn(createTime);
+                ZonedDateTime updateTime = ZonedDateTime.parse(obj.getString("updated_on"));
+                project.setUpdatedOn(updateTime);
 
-                String A = obj.getString("name");
-                String B = obj.getString("status");
-                String C = obj.getString("created_on");
-                System.out.println(A + " " + B + " " + C);
+                projList.add(project);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return projList;
+
+    }
+
+
+    public  ArrayList<Issue> parseIssues (String jsonStr){
+
+        ArrayList<Issue> issueList = new ArrayList<>();
+        JSONArray c = null;
+        try {
+            JSONObject jsonObj = new JSONObject(jsonStr);
+
+            c = jsonObj.getJSONArray("issues");
+            for (int i = 0 ; i < c.length(); i++) {
+
+                Issue issue = new Issue();
+                JSONObject obj = c.getJSONObject(i);
+
+                //TODO: Figure out what ID really is!!!
+                String  id = obj.getString("id");
+//                long longID = id;
+//                issue.setId(longID);
+
+
+                issue.setSubject(obj.getString("subject"));
+                issue.setDescription(obj.getString("description"));
+                issue.setDoneRatio(obj.getString("doneRatio"));
+
+                ZonedDateTime startTime = ZonedDateTime.parse(obj.getString("startDate"));
+                issue.setCreatedOn(startTime);
+                ZonedDateTime createTime = ZonedDateTime.parse(obj.getString("createdOn"));
+                issue.setUpdatedOn(createTime);
+                ZonedDateTime updateTime = ZonedDateTime.parse(obj.getString("updatedOn"));
+                issue.setUpdatedOn(updateTime);
+
+                issueList.add(issue);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return issueList;
 
     }
 
