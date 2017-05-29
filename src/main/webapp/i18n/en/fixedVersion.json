@@ -1,0 +1,23 @@
+{
+    "redmineappApp": {
+        "fixedVersion" : {
+            "home": {
+                "title": "Fixed Versions",
+                "createLabel": "Create a new Fixed Version",
+                "createOrEditLabel": "Create or edit a Fixed Version",
+                "search": "Search for Fixed Version"
+            },
+            "created": "A new Fixed Version is created with identifier {{ param }}",
+            "updated": "A Fixed Version is updated with identifier {{ param }}",
+            "deleted": "A Fixed Version is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Fixed Version {{ id }}?"
+            },
+            "detail": {
+                "title": "Fixed Version"
+            },
+            "name": "Name",
+            "issue": "Issue"
+        }
+    }
+}

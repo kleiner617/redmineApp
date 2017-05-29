@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "issue",
+            "otherEntityName": "issue",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "priority"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170527200717",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "priority",
+    "pagination": "pager"
+}

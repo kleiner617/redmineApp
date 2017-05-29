@@ -1,0 +1,98 @@
+<div>
+    <h2 data-translate="redmineappApp.issue.home.title">Issues</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="issue.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="redmineappApp.issue.home.createLabel">
+                        Create new Issue
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="subject"><span data-translate="redmineappApp.issue.subject">Subject</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span data-translate="redmineappApp.issue.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="startDate"><span data-translate="redmineappApp.issue.startDate">Start Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="doneRatio"><span data-translate="redmineappApp.issue.doneRatio">Done Ratio</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="estimatedHours"><span data-translate="redmineappApp.issue.estimatedHours">Estimated Hours</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdOn"><span data-translate="redmineappApp.issue.createdOn">Created On</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedOn"><span data-translate="redmineappApp.issue.updatedOn">Updated On</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="storyPoints"><span data-translate="redmineappApp.issue.storyPoints">Story Points</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="project.id"><span data-translate="redmineappApp.issue.project">Project</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="tracker.id"><span data-translate="redmineappApp.issue.tracker">Tracker</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status.id"><span data-translate="redmineappApp.issue.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="priority.id"><span data-translate="redmineappApp.issue.priority">Priority</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="author.id"><span data-translate="redmineappApp.issue.author">Author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fixedVersion.id"><span data-translate="redmineappApp.issue.fixedVersion">Fixed Version</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="issue in vm.issues track by issue.id">
+                    <td><a ui-sref="issue-detail({id:issue.id})">{{issue.id}}</a></td>
+                    <td>{{issue.subject}}</td>
+                    <td>{{issue.description}}</td>
+                    <td>{{issue.startDate | date:'medium'}}</td>
+                    <td>{{issue.doneRatio}}</td>
+                    <td>{{issue.estimatedHours}}</td>
+                    <td>{{issue.createdOn | date:'medium'}}</td>
+                    <td>{{issue.updatedOn | date:'medium'}}</td>
+                    <td>{{issue.storyPoints}}</td>
+                    <td>
+                        <a ui-sref="project-detail({id:issue.project.id})">{{issue.project.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="tracker-detail({id:issue.tracker.id})">{{issue.tracker.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="status-detail({id:issue.status.id})">{{issue.status.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="priority-detail({id:issue.priority.id})">{{issue.priority.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="author-detail({id:issue.author.id})">{{issue.author.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="fixed-version-detail({id:issue.fixedVersion.id})">{{issue.fixedVersion.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="issue-detail({id:issue.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="issue.edit({id:issue.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="issue.delete({id:issue.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

@@ -1,0 +1,75 @@
+
+<div>
+    <h2><span data-translate="redmineappApp.issue.detail.title">Issue</span> {{vm.issue.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="redmineappApp.issue.subject">Subject</span></dt>
+        <dd>
+            <span>{{vm.issue.subject}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.description">Description</span></dt>
+        <dd>
+            <span>{{vm.issue.description}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{vm.issue.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.doneRatio">Done Ratio</span></dt>
+        <dd>
+            <span>{{vm.issue.doneRatio}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.estimatedHours">Estimated Hours</span></dt>
+        <dd>
+            <span>{{vm.issue.estimatedHours}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{vm.issue.createdOn | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.updatedOn">Updated On</span></dt>
+        <dd>
+            <span>{{vm.issue.updatedOn | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.storyPoints">Story Points</span></dt>
+        <dd>
+            <span>{{vm.issue.storyPoints}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.project">Project</span></dt>
+        <dd>
+            <a ui-sref="project-detail({id:vm.issue.project.id})">{{vm.issue.project.id}}</a>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.tracker">Tracker</span></dt>
+        <dd>
+            <a ui-sref="tracker-detail({id:vm.issue.tracker.id})">{{vm.issue.tracker.id}}</a>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.status">Status</span></dt>
+        <dd>
+            <a ui-sref="status-detail({id:vm.issue.status.id})">{{vm.issue.status.id}}</a>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.priority">Priority</span></dt>
+        <dd>
+            <a ui-sref="priority-detail({id:vm.issue.priority.id})">{{vm.issue.priority.id}}</a>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.author">Author</span></dt>
+        <dd>
+            <a ui-sref="author-detail({id:vm.issue.author.id})">{{vm.issue.author.id}}</a>
+        </dd>
+        <dt><span data-translate="redmineappApp.issue.fixedVersion">Fixed Version</span></dt>
+        <dd>
+            <a ui-sref="fixed-version-detail({id:vm.issue.fixedVersion.id})">{{vm.issue.fixedVersion.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="issue-detail.edit({id:vm.issue.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

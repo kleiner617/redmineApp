@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="CM1"
+         updateCheck="false"
+         maxBytesLocalHeap="16M">
+
+    <!--
+      This is a default configuration, it is re-configured by the CacheConfiguration Spring Bean, using the
+      properties from the resources/config/*.yml files.
+    -->
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            eternal="false"
+            overflowToDisk="false"
+            />
+
+    <cache name="com.ippon.redmineapp.domain.User"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Authority"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.User.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.PersistentToken"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.User.persistentTokens"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.ippon.redmineapp.domain.Project"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Issue"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Tracker"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Status"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Priority"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Author"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.FixedVersion"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Project.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Tracker.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Status.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Priority.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.Author.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.ippon.redmineapp.domain.FixedVersion.issues"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <!-- jhipster-needle-ehcache-add-entry -->
+</ehcache>

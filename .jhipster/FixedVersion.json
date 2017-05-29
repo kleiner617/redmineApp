@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "issue",
+            "otherEntityName": "issue",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "fixedVersion"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170527200857",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "fixed_version",
+    "pagination": "pager"
+}

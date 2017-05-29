@@ -1,0 +1,23 @@
+{
+    "redmineappApp": {
+        "priority" : {
+            "home": {
+                "title": "Priorities",
+                "createLabel": "Créer un nouveau Priority",
+                "createOrEditLabel": "Créer ou éditer un Priority",
+                "search": "Recherche pour Priority"
+            },
+            "created": "Un nouveau Priority a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Priority avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Priority avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Priority {{ id }} ?"
+            },
+            "detail": {
+                "title": "Priority"
+            },
+            "name": "Name",
+            "issue": "Issue"
+        }
+    }
+}

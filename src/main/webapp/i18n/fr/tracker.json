@@ -1,0 +1,23 @@
+{
+    "redmineappApp": {
+        "tracker" : {
+            "home": {
+                "title": "Trackers",
+                "createLabel": "Créer un nouveau Tracker",
+                "createOrEditLabel": "Créer ou éditer un Tracker",
+                "search": "Recherche pour Tracker"
+            },
+            "created": "Un nouveau Tracker a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Tracker avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Tracker avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Tracker {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tracker"
+            },
+            "name": "Name",
+            "issue": "Issue"
+        }
+    }
+}

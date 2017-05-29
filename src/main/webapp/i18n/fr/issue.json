@@ -1,0 +1,35 @@
+{
+    "redmineappApp": {
+        "issue" : {
+            "home": {
+                "title": "Issues",
+                "createLabel": "Créer un nouveau Issue",
+                "createOrEditLabel": "Créer ou éditer un Issue",
+                "search": "Recherche pour Issue"
+            },
+            "created": "Un nouveau Issue a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Issue avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Issue avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Issue {{ id }} ?"
+            },
+            "detail": {
+                "title": "Issue"
+            },
+            "subject": "Subject",
+            "description": "Description",
+            "startDate": "Start Date",
+            "doneRatio": "Done Ratio",
+            "estimatedHours": "Estimated Hours",
+            "createdOn": "Created On",
+            "updatedOn": "Updated On",
+            "storyPoints": "Story Points",
+            "project": "Project",
+            "tracker": "Tracker",
+            "status": "Status",
+            "priority": "Priority",
+            "author": "Author",
+            "fixedVersion": "Fixed Version"
+        }
+    }
+}
