@@ -4,6 +4,7 @@
             "home": {
                 "title": "Projects",
                 "createLabel": "Create a new Project",
+                "getLabel": "All Projects",
                 "createOrEditLabel": "Create or edit a Project",
                 "search": "Search for Project"
             },
@@ -17,6 +18,11 @@
                 "title": "Project"
             },
             "name": "Name",
+            "identifier": "Identifier",
+            "description": "Description",
+            "status": "Status",
+            "createdOn": "Created On",
+            "updatedOn": "Updated On",
             "issue": "Issue"
         }
     }

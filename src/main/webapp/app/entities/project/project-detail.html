@@ -8,6 +8,26 @@
         <dd>
             <span>{{vm.project.name}}</span>
         </dd>
+        <dt><span data-translate="redmineappApp.project.identifier">Identifier</span></dt>
+        <dd>
+            <span>{{vm.project.identifier}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.project.description">Description</span></dt>
+        <dd>
+            <span>{{vm.project.description}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.project.status">Status</span></dt>
+        <dd>
+            <span>{{vm.project.status}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.project.createdOn">Created On</span></dt>
+        <dd>
+            <span>{{vm.project.createdOn | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="redmineappApp.project.updatedOn">Updated On</span></dt>
+        <dd>
+            <span>{{vm.project.updatedOn | date:'medium'}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

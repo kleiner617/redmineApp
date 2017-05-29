@@ -5,20 +5,26 @@
         .module('redmineappApp')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['$scope', '$state', 'Project', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    ProjectController.$inject = ['$scope', '$state', 'DataUtils', 'Project', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function ProjectController ($scope, $state, Project, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function ProjectController ($scope, $state, DataUtils, Project, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
+        vm.getAll = getAll;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.openFile = DataUtils.openFile;
+        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 
         function loadAll () {
+
+
+
             Project.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
@@ -47,6 +53,13 @@
             vm.page = page;
             vm.transition();
         }
+
+        function getAll(){
+            console.log("This is working");
+            Project.getAll();
+            console.log("Should have gotten all");
+        }
+
 
         function transition () {
             $state.transitionTo($state.$current, {

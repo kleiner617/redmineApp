@@ -4,11 +4,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="project.new" >
+                <!--<button class="btn btn-primary" ui-sref="project.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  data-translate="redmineappApp.project.home.createLabel">
                         Create new Project
                     </span>
+                </button>-->
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.getAll()">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;<span data-translate="redmineappApp.project.home.getLabel">All Projects</span>
                 </button>
             </div>
         </div>
@@ -20,6 +24,11 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="redmineappApp.project.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="identifier"><span data-translate="redmineappApp.project.identifier">Identifier</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span data-translate="redmineappApp.project.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status"><span data-translate="redmineappApp.project.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdOn"><span data-translate="redmineappApp.project.createdOn">Created On</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedOn"><span data-translate="redmineappApp.project.updatedOn">Updated On</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,6 +36,11 @@
                 <tr ng-repeat="project in vm.projects track by project.id">
                     <td><a ui-sref="project-detail({id:project.id})">{{project.id}}</a></td>
                     <td>{{project.name}}</td>
+                    <td>{{project.identifier}}</td>
+                    <td>{{project.description}}</td>
+                    <td>{{project.status}}</td>
+                    <td>{{project.createdOn | date:'medium'}}</td>
+                    <td>{{project.updatedOn | date:'medium'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

@@ -3,6 +3,7 @@ package com.ippon.redmineapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.ippon.redmineapp.domain.Project;
 
+import com.ippon.redmineapp.domain.util.ParseJSON;
 import com.ippon.redmineapp.repository.ProjectRepository;
 import com.ippon.redmineapp.web.rest.util.HeaderUtil;
 import com.ippon.redmineapp.web.rest.util.PaginationUtil;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ import java.util.Optional;
 public class ProjectResource {
 
     private final Logger log = LoggerFactory.getLogger(ProjectResource.class);
-        
+
     @Inject
     private ProjectRepository projectRepository;
 
@@ -55,6 +57,67 @@ public class ProjectResource {
             .headers(HeaderUtil.createEntityCreationAlert("project", result.getId().toString()))
             .body(result);
     }
+
+
+    /**
+     * POST  /getProjects : Gets all projects from redmine.
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/getProjects",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public void getAllProjects() throws URISyntaxException {
+
+        log.debug("I've made it to the REST!");
+
+        String projJSON = "" +
+
+            "{" +
+            "\"projects\": [" +
+            "{" +
+            "\"id\": \"2\"," +
+            "\"name\": \"Direction Technique\"," +
+            "\"identifier\": \"direction-technique\"," +
+            "\"description\": \"\"," +
+            "\"status\": \"1\"," +
+            "\"created_on\": \"2014-03-26T09:20:29Z\"," +
+            "\"updated_on\": \"2014-03-26T09:20:29Z\"" +
+            "}," +
+            "{" +
+            "\"id\": \"43\"," +
+            "\"name\": \"FeedBack\"," +
+            "\"identifier\": \"feedback\"," +
+            "\"description\": \"\"," +
+            "\"status\": \"1\"," +
+            "\"created_on\": \"2016-02-02T11:22:50Z\"," +
+            "\"updated_on\": \"2016-02-02T11:22:50Z\"" +
+            "}" +
+            "]," +
+            "\"total_count\": \"10\"," +
+            "\"offset\": \"0\"," +
+            "\"limit\": \"25\"" +
+            "}";
+
+        ParseJSON parseList = new ParseJSON();
+        ArrayList <Project> projectList = new ArrayList<Project>();
+        projectList = parseList.parseString(projJSON);
+
+        log.debug("The list has been parsed");
+
+
+        projectList.forEach(proj->{
+            //TODO: Need to check to see if project already exists.  If it does, update it here, don't save it.
+            projectRepository.save(proj);
+        });
+
+        log.debug("Should have saved to DB!");
+
+        return;
+    }
+
+
+
 
     /**
      * PUT  /projects : Updates an existing project.

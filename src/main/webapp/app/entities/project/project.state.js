@@ -125,6 +125,11 @@
                         entity: function () {
                             return {
                                 name: null,
+                                identifier: null,
+                                description: null,
+                                status: null,
+                                createdOn: null,
+                                updatedOn: null,
                                 id: null
                             };
                         }

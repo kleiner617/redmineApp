@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -26,6 +27,22 @@ public class Project implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "identifier")
+    private String identifier;
+
+    @Lob
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "created_on")
+    private ZonedDateTime createdOn;
+
+    @Column(name = "updated_on")
+    private ZonedDateTime updatedOn;
 
     @OneToMany(mappedBy = "project")
     @JsonIgnore
@@ -51,6 +68,71 @@ public class Project implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public Project identifier(String identifier) {
+        this.identifier = identifier;
+        return this;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Project description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Project status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ZonedDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public Project createdOn(ZonedDateTime createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
+
+    public void setCreatedOn(ZonedDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public ZonedDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Project updatedOn(ZonedDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+        return this;
+    }
+
+    public void setUpdatedOn(ZonedDateTime updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     public Set<Issue> getIssues() {
@@ -103,6 +185,11 @@ public class Project implements Serializable {
         return "Project{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", identifier='" + identifier + "'" +
+            ", description='" + description + "'" +
+            ", status='" + status + "'" +
+            ", createdOn='" + createdOn + "'" +
+            ", updatedOn='" + updatedOn + "'" +
             '}';
     }
 }

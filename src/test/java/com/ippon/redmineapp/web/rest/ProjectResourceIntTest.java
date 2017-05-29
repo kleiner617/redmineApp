@@ -19,10 +19,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,8 +43,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = RedmineappApp.class)
 public class ProjectResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
+    private static final String DEFAULT_IDENTIFIER = "AAAAA";
+    private static final String UPDATED_IDENTIFIER = "BBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBB";
+    private static final String DEFAULT_STATUS = "AAAAA";
+    private static final String UPDATED_STATUS = "BBBBB";
+
+    private static final ZonedDateTime DEFAULT_CREATED_ON = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATED_ON = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATED_ON_STR = dateTimeFormatter.format(DEFAULT_CREATED_ON);
+
+    private static final ZonedDateTime DEFAULT_UPDATED_ON = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_UPDATED_ON = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_UPDATED_ON_STR = dateTimeFormatter.format(DEFAULT_UPDATED_ON);
 
     @Inject
     private ProjectRepository projectRepository;
@@ -75,7 +97,12 @@ public class ProjectResourceIntTest {
      */
     public static Project createEntity(EntityManager em) {
         Project project = new Project()
-                .name(DEFAULT_NAME);
+                .name(DEFAULT_NAME)
+                .identifier(DEFAULT_IDENTIFIER)
+                .description(DEFAULT_DESCRIPTION)
+                .status(DEFAULT_STATUS)
+                .createdOn(DEFAULT_CREATED_ON)
+                .updatedOn(DEFAULT_UPDATED_ON);
         return project;
     }
 
@@ -96,11 +123,42 @@ public class ProjectResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(project)))
                 .andExpect(status().isCreated());
 
+
         // Validate the Project in the database
         List<Project> projects = projectRepository.findAll();
         assertThat(projects).hasSize(databaseSizeBeforeCreate + 1);
         Project testProject = projects.get(projects.size() - 1);
+
         assertThat(testProject.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testProject.getIdentifier()).isEqualTo(DEFAULT_IDENTIFIER);
+        assertThat(testProject.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testProject.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testProject.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+        assertThat(testProject.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
+    }
+
+    @Test
+    @Transactional
+    public void getProjects() throws Exception {
+
+        restProjectMockMvc.perform(post("/api/getProjects")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(project)));
+
+
+        // Validate the Project in the database
+        List<Project> projects = projectRepository.findAll();
+//        assertThat(projects).hasSize(databaseSizeBeforeCreate + 1);
+        Project testProject = projects.get(projects.size() - 1);
+
+        assertThat(testProject.getName()).isEqualTo("FeedBack");
+
+//        assertThat(testProject.getName()).isEqualTo(DEFAULT_NAME);
+//        assertThat(testProject.getIdentifier()).isEqualTo(DEFAULT_IDENTIFIER);
+//        assertThat(testProject.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+//        assertThat(testProject.getStatus()).isEqualTo(DEFAULT_STATUS);
+//        assertThat(testProject.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+//        assertThat(testProject.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
     }
 
     @Test
@@ -114,7 +172,12 @@ public class ProjectResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(project.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].identifier").value(hasItem(DEFAULT_IDENTIFIER.toString())))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON_STR)))
+                .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON_STR)));
     }
 
     @Test
@@ -128,7 +191,12 @@ public class ProjectResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(project.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.identifier").value(DEFAULT_IDENTIFIER.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON_STR))
+            .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON_STR));
     }
 
     @Test
@@ -149,7 +217,12 @@ public class ProjectResourceIntTest {
         // Update the project
         Project updatedProject = projectRepository.findOne(project.getId());
         updatedProject
-                .name(UPDATED_NAME);
+                .name(UPDATED_NAME)
+                .identifier(UPDATED_IDENTIFIER)
+                .description(UPDATED_DESCRIPTION)
+                .status(UPDATED_STATUS)
+                .createdOn(UPDATED_CREATED_ON)
+                .updatedOn(UPDATED_UPDATED_ON);
 
         restProjectMockMvc.perform(put("/api/projects")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -161,6 +234,11 @@ public class ProjectResourceIntTest {
         assertThat(projects).hasSize(databaseSizeBeforeUpdate);
         Project testProject = projects.get(projects.size() - 1);
         assertThat(testProject.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testProject.getIdentifier()).isEqualTo(UPDATED_IDENTIFIER);
+        assertThat(testProject.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testProject.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProject.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
+        assertThat(testProject.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
     }
 
     @Test
